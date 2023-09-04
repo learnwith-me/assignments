@@ -17,11 +17,11 @@ const Cards = ({ documents, handleDrop, handleDocumentClick, handleDownload }) =
     };
 
     return (
-        <div className='document-cards px-10 flex flex-wrap gap-10'>
+        <div className='document-cards px-10 flex flex-wrap gap-10 overflow-y-scroll h-[465px] mt-5'>
             {documents.map((document, index) => (
                 <div key={index} className='py-4 px-4 max-w-sm bg-bgTwo rounded-xl shadow-sm relative'>
                     <div className='card-header flex w-full gap-5'>
-                        <div className='flex flex-1 gap-5'>
+                        <div className='flex flex-1 gap-5 break-all'>
                             <DocIcon />
                             {document.name}
                         </div>
