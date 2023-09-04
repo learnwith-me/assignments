@@ -8,21 +8,8 @@ import 'react-notifications/lib/notifications.css';
 import CloseIcon from '../icons/CloseIcon';
 
 const Home = () => {
-    const [documents, setDocuments] = useState([]);
-    const [dummyDocuments, setDummyDocuments] = useState([]);
-    const [selectedDocument, setSelectedDocument] = useState(null);
-
-    // Dummy uploaded documents
-    const data = [
-        { name: 'Sample Document 1.pdf', url: 'https://images.unsplash.com/photo-1683724497249-bc24d5687191?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2787&q=80' },
-        { name: 'Sample Document 2.pdf', url: 'https://images.unsplash.com/photo-1683724497249-bc24d5687191?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2787&q=80' },
-        { name: 'Sample Document 3.pdf', url: 'https://images.unsplash.com/photo-1683724497249-bc24d5687191?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2787&q=80' },
-    ];
-
-    // Initialize documents with dummy documents
-    useEffect(() => {
-        setDummyDocuments(data);
-    }, []);
+    const [documents, setDocuments] = useState([]),
+        [selectedDocument, setSelectedDocument] = useState(null);
 
     const handleDocumentClick = (document) => {
         setSelectedDocument(document);
@@ -99,7 +86,7 @@ const Home = () => {
                     <div className={`relative flex justify-center items-baseline ${documents.length === 0 ? 'block' : 'hidden'}`}>
                         <FilesFolder />
                     </div>
-                    <Cards documents={documents} dummyDocuments={dummyDocuments} handleDocumentClick={handleDocumentClick} handleDownload={handleDownload} />
+                    <Cards documents={documents} handleDocumentClick={handleDocumentClick} handleDownload={handleDownload} />
                 </div>
             </div>
         </main>

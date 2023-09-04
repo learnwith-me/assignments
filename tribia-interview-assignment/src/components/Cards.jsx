@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import DocIcon from '../icons/DocIcon';
 import KebabIcon from '../icons/KebabIcon';
 import ArrowIcon from '../icons/ArrowIcon';
 import DummyData from './DummyData';
 import { Link } from 'react-router-dom';
 
-const Cards = ({ documents, handleDocumentClick, handleDownload, dummyDocuments }) => {
+const Cards = ({ documents, handleDocumentClick, handleDownload }) => {
 
-    const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
+    const [openDropdownIndex, setOpenDropdownIndex] = useState(null),
+    dropdownRef = useRef(null);
+
     const toggleDropdown = (index) => {
         if (openDropdownIndex === index) {
             // If the same item is clicked again, close the dropdown
@@ -17,6 +19,17 @@ const Cards = ({ documents, handleDocumentClick, handleDownload, dummyDocuments 
             setOpenDropdownIndex(index);
         }
     };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setOpenDropdownIndex(null);
+            }
+        };
+    
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     return (
         <div className='document-cards px-10 flex flex-wrap gap-10 mt-5'>
@@ -38,7 +51,7 @@ const Cards = ({ documents, handleDocumentClick, handleDownload, dummyDocuments 
                     </div>
 
                     {openDropdownIndex === index && (
-                        <div className='card-dropdown absolute bg-white right-0 top-full mt-2 z-[999]'>
+                        <div ref={dropdownRef} className='card-dropdown absolute bg-white right-0 top-full mt-2 z-[999]'>
                             <span className='absolute top-[-8px] right-3 z-[-1]'>
                                 <ArrowIcon />
                             </span>

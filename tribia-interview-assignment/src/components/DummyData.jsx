@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import DocIcon from '../icons/DocIcon';
 import KebabIcon from '../icons/KebabIcon';
 import ArrowIcon from '../icons/ArrowIcon';
@@ -7,11 +7,12 @@ import CloseIcon from '../icons/CloseIcon';
 import { Link } from 'react-router-dom';
 
 const DummyData = () => {
-    
-    const [dummyData, setDummyData] = useState(null);
-    const [previewImage, setPreviewImage] = useState(null);
-    
-    const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
+
+    const [dummyData, setDummyData] = useState(null),
+        [previewImage, setPreviewImage] = useState(null),
+        dropdownRef = useRef(null),
+        [openDropdownIndex, setOpenDropdownIndex] = useState(null);
+        
     const toggleDropdown = (index) => {
         if (openDropdownIndex === index) {
             // If the same item is clicked again, close the dropdown
@@ -30,6 +31,15 @@ const DummyData = () => {
                 setDummyData(firstThreeProducts);
             })
             .catch(console.error);
+
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setOpenDropdownIndex(null);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
     const openPreviewPopup = (url) => {
@@ -53,12 +63,12 @@ const DummyData = () => {
                             <Link onClick={() => toggleDropdown(index)}>
                                 <KebabIcon />
                             </Link>
-                          
+
                         </div>
                     </div>
 
                     {openDropdownIndex === index && (
-                        <div className='card-dropdown absolute bg-white right-0 top-full mt-2 z-[999]'>
+                        <div ref={dropdownRef} className='card-dropdown absolute bg-white right-0 top-full mt-2 z-[999]'>
                             <span className='absolute top-[-8px] right-3 z-[-1]'>
                                 <ArrowIcon />
                             </span>
