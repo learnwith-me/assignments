@@ -23,3 +23,17 @@ https://github.com/learnwith-me/assignments/tree/main
 # Step 3 Run cmd yarn / run cmd npm install (It will download dependencies)
 
 # Step 4 Run cmd npm start
+
+Your usage guidelines for the Document Management System (DMS) are clear and concise. However, to make them even more explicit, you can consider rephrasing them as follows:
+
+# DMS Usage Guidelines
+
+1. **Default Fetch:** The DMS fetches 3 items from the API by default.
+
+2. **Upload Multiple Files:** To upload multiple files, click on the "Choose File" button located at the top right corner of the interface.
+
+3. **File Listing:** Once uploaded, the files will be listed on the dashboard and can be accessed via the Kebab menu.
+
+4. **Preview and Download:** Click on the Kebab Menu for options to preview and download the selected documents.
+
+5. **Notifications:** Be aware that notifications will appear to inform you of file uploads and downloads.
